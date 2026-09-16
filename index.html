@@ -41,13 +41,31 @@
 </div>
     <script> 
         function checkPrompt() {
-    let prompt = document.getElementById("userPrompt").value;
+    let prompt = document.getElementById("userPrompt").value.trim();
     let feedback = document.getElementById("feedback");
 
-    if (prompt.trim() === "") {
-        feedback.innerText = "Please write a prompt first.";
-    } else {
-        feedback.innerText = "Great! Your prompt has been submitted. 🎉";
+    if (prompt === "") {
+        feedback.innerText = "⚠️ Please write a prompt first.";
+        return;
+    }
+
+    let words = prompt.split(/\s+/).length;
+
+    if (words < 5) {
+        feedback.innerText =
+            "💡 Your prompt is a little short. Add more details about what you want.";
+    } 
+    else if (prompt.includes("?") || prompt.toLowerCase().includes("explain") ||
+             prompt.toLowerCase().includes("give") ||
+             prompt.toLowerCase().includes("write")) {
+        feedback.innerText =
+            "🌟 Good prompt! It contains a clear request. Try adding the format or level of detail you want.";
+    } 
+    else {
+        feedback.innerText =
+            "👍 Good start! Add a clear instruction such as 'Explain', 'Compare', or 'Give examples'.";
+    }
+        }
     }
         }
         function showLesson() {
