@@ -24,8 +24,32 @@
 
         <p>Explain Newton's Rings in simple words.</p>
     </div>
+<div id="challenge">
 
-    <script>
+    <h2>🎯 Try It Yourself</h2>
+
+    <p>Write a prompt asking AI to explain any topic.</p>
+
+    <textarea id="userPrompt" placeholder="Example: Explain photosynthesis in simple words."></textarea>
+
+    <br><br>
+
+    <button onclick="checkPrompt()">🔍 Check My Prompt</button>
+
+    <p id="feedback"></p>
+
+</div>
+    <script> 
+        function checkPrompt() {
+    let prompt = document.getElementById("userPrompt").value;
+    let feedback = document.getElementById("feedback");
+
+    if (prompt.trim() === "") {
+        feedback.innerText = "Please write a prompt first.";
+    } else {
+        feedback.innerText = "Great! Your prompt has been submitted. 🎉";
+    }
+        }
         function showLesson() {
             document.getElementById("lesson").style.display = "block";
         }
