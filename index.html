@@ -13,19 +13,23 @@
 
     <h2>Welcome to AI Study Lab!</h2>
 
-    <button onclick="startLab()">🚀 Start Learning</button>
+    <button onclick="showLesson()">🚀 Start Learning</button>
 
-    <div id="lesson">
+    <div id="lesson" style="display:none;">
         <h2>✍️ Lesson 1: What is an AI Prompt?</h2>
 
         <p>A prompt is the instruction or question you give to an AI.</p>
 
         <p><strong>Example:</strong></p>
 
-        <p>"Explain Newton's Rings in simple words."</p>
+        <p>Explain Newton's Rings in simple words.</p>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function showLesson() {
+            document.getElementById("lesson").style.display = "block";
+        }
+    </script>
 
 </body>
 </html>
