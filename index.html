@@ -2,75 +2,243 @@
 <html>
 <head>
     <title>AI Study Lab</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f1ff;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        h1 {
+            color: #4b3f72;
+        }
+
+        .card {
+            max-width: 650px;
+            margin: 25px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px #ddd;
+        }
+
+        button {
+            background: #5b4b8a;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            margin: 8px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        textarea {
+            width: 90%;
+            height: 100px;
+            padding: 10px;
+            font-size: 15px;
+            border-radius: 8px;
+            border: 1px solid #aaa;
+        }
+
+        .lesson {
+            display: none;
+        }
+
+        #feedback {
+            font-weight: bold;
+        }
+
+        .score {
+            font-size: 20px;
+            color: #4b3f72;
+        }
+    </style>
 </head>
 
 <body>
 
     <h1>🤖 AI Study Lab</h1>
 
-    <p>Learn, Practice & Improve Your AI Skills</p>
+    <p>Learn • Practice • Improve Your AI Skills</p>
 
-    <h2>Welcome to AI Study Lab!</h2>
+    <div class="card">
+        <h2>Welcome to AI Study Lab!</h2>
 
-    <button onclick="showLesson()">🚀 Start Learning</button>
+        <p>Learn how to write better prompts and understand AI.</p>
 
-    <div id="lesson" style="display:none;">
-        <h2>✍️ Lesson 1: What is an AI Prompt?</h2>
-
-        <p>A prompt is the instruction or question you give to an AI.</p>
-
-        <p><strong>Example:</strong></p>
-
-        <p>Explain Newton's Rings in simple words.</p>
+        <button onclick="startLearning()">
+            🚀 Start Learning
+        </button>
     </div>
-<div id="challenge">
 
-    <h2>🎯 Try It Yourself</h2>
 
-    <p>Write a prompt asking AI to explain any topic.</p>
+    <div id="lesson" class="lesson">
 
-    <textarea id="userPrompt" placeholder="Example: Explain photosynthesis in simple words."></textarea>
+        <div class="card">
+            <h2>📚 Lesson 1: What is an AI Prompt?</h2>
 
-    <br><br>
+            <p>
+                A prompt is an instruction or question that you give to an AI.
+            </p>
 
-    <button onclick="checkPrompt()">🔍 Check My Prompt</button>
+            <p><strong>Example:</strong></p>
 
-    <p id="feedback"></p>
+            <p>
+                "Explain photosynthesis in simple words."
+            </p>
 
-</div>
-    <script> 
-        function checkPrompt() {
-    let prompt = document.getElementById("userPrompt").value.trim();
-    let feedback = document.getElementById("feedback");
+            <button onclick="showPractice()">
+                ✍️ Practice
+            </button>
+        </div>
 
-    if (prompt === "") {
-        feedback.innerText = "⚠️ Please write a prompt first.";
-        return;
-    }
 
-    let words = prompt.split(/\s+/).length;
+        <div id="practice" class="card" style="display:none;">
 
-    if (words < 5) {
-        feedback.innerText =
-            "💡 Your prompt is a little short. Add more details about what you want.";
-    } 
-    else if (prompt.includes("?") || prompt.toLowerCase().includes("explain") ||
-             prompt.toLowerCase().includes("give") ||
-             prompt.toLowerCase().includes("write")) {
-        feedback.innerText =
-            "🌟 Good prompt! It contains a clear request. Try adding the format or level of detail you want.";
-    } 
-    else {
-        feedback.innerText =
-            "👍 Good start! Add a clear instruction such as 'Explain', 'Compare', or 'Give examples'.";
-    }
-        }
-    }
-        }
-        function showLesson() {
+            <h2>🎯 Prompt Challenge</h2>
+
+            <p>
+                Write a prompt asking AI to explain any topic.
+            </p>
+
+            <textarea
+                id="userPrompt"
+                placeholder="Example: Explain gravity in simple words with an example."
+            ></textarea>
+
+            <br>
+
+            <button onclick="checkPrompt()">
+                🔍 Check My Prompt
+            </button>
+
+            <p id="feedback"></p>
+
+            <p class="score">
+                Score: <span id="score">0</span>/10
+            </p>
+
+            <button onclick="showQuiz()">
+                🧠 Take Quiz
+            </button>
+
+        </div>
+
+
+        <div id="quiz" class="card" style="display:none;">
+
+            <h2>🧠 Mini Quiz</h2>
+
+            <p>
+                What is a prompt?
+            </p>
+
+            <button onclick="quizAnswer(false)">
+                A computer program
+            </button>
+
+            <button onclick="quizAnswer(true)">
+                An instruction given to AI
+            </button>
+
+            <p id="quizResult"></p>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let score = 0;
+
+        function startLearning() {
             document.getElementById("lesson").style.display = "block";
         }
+
+        function showPractice() {
+            document.getElementById("practice").style.display = "block";
+        }
+
+        function checkPrompt() {
+
+            let prompt =
+                document.getElementById("userPrompt").value.trim();
+
+            let feedback =
+                document.getElementById("feedback");
+
+            if (prompt === "") {
+
+                feedback.innerText =
+                    "⚠️ Please write a prompt first.";
+
+                return;
+            }
+
+            let words = prompt.split(/\s+/).length;
+
+            if (words < 5) {
+
+                feedback.innerText =
+                    "💡 Add more details to make your prompt clearer.";
+
+                score = 4;
+
+            } else if (
+                prompt.toLowerCase().includes("explain") ||
+                prompt.toLowerCase().includes("give") ||
+                prompt.toLowerCase().includes("compare") ||
+                prompt.includes("?")
+            ) {
+
+                feedback.innerText =
+                    "🌟 Great! Your prompt has a clear request.";
+
+                score = 10;
+
+            } else {
+
+                feedback.innerText =
+                    "👍 Good start! Try adding a clear instruction.";
+
+                score = 7;
+            }
+
+            document.getElementById("score").innerText = score;
+        }
+
+
+        function showQuiz() {
+            document.getElementById("quiz").style.display = "block";
+        }
+
+
+        function quizAnswer(correct) {
+
+            let result =
+                document.getElementById("quizResult");
+
+            if (correct) {
+
+                result.innerText =
+                    "🎉 Correct! Great job!";
+
+            } else {
+
+                result.innerText =
+                    "💡 Try again. A prompt is an instruction given to AI.";
+            }
+        }
+
     </script>
 
 </body>
